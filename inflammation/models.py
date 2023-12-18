@@ -103,6 +103,13 @@ def daily_above_threshold(patient_num, data, threshold):
   # return reduce(lambda a, b: a + 1 if b else a, above_threshold, 0)
   # return list(map(lambda x: x > threshold, data[patient_num]))
 
+class Observation:
+    def __init__(self, day, value):
+        self.day = day
+        self.value = value
+
+    def __str__(self):
+        return self.value
 
 class Person:
     """A person."""
@@ -114,9 +121,13 @@ class Person:
 
 class Patient(Person):
     """A patient in an inflammation study."""
-    def __init__(self, name):
+    def __init__(self, name, observations=None):
         super().__init__(name)
         self.observations = []
+        ### MODIFIED START ###
+        if observations is not None:
+            self.observations = observations
+        ### MODIFIED END ###
 
     def add_observation(self, value, day=None):
         if day is None:
